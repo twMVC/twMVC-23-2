@@ -36,6 +36,8 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
 
     var attachments = new List<Attachment>();
 
+    var script = HttpContext.Current.ServerVariables["SCRIPT_NAME"];
+
     if (q.Length > 1)
     {
         attachments.Add(new Attachment
@@ -43,7 +45,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
             AuthorName = "萌典",
             AuthorLink = "https://www.moedict.tw/",
             AuthorIcon = "https://www.moedict.tw/icon.png",
-            Title = q,
+            Title = $"{q} _ {script}",
             TitleLink = $"https://www.moedict.tw/{HttpUtility.UrlEncode(q)}",
             ImageUrl = $"https://www.moedict.tw/{HttpUtility.UrlEncode(q)}.png"
         });
